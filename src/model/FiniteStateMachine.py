@@ -23,6 +23,7 @@ class FiniteStateMachine:
         self.S = S 
         self.R = R
         self.initial_state = initial_state
+        
     def add_state(self, q):
         pass
     
@@ -32,7 +33,7 @@ class FiniteStateMachine:
     def add_response(self, stimuli, state, response):
         pass
 
-    
+
 
 
 
