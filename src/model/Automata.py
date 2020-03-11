@@ -24,45 +24,30 @@ class Automata:
     MEALY = "Mealy"
     MOORE = "Moore"
 
-    def __init__(self,Q,S,R,initial_state, automata_type):
+    def __init__(self, Q, S, R, initial_state, automata_type):
         self.automata_type = automata_type
         self.state_map = {}
         self.transition_map = {}
         self.Q = Q
-        self.S = S 
+        self.S = S
         self.R = R
         self.initial_state = initial_state
-        
+
     def add_state(self, q, r):
-        state_map[q] = [r]
-        transition_map[q] = set()
-    
+        self.state_map[q] = [r]
+        self.transition_map[q] = set()
+
     def add_transition(self, stimuli, initial_q, final_q):
-        transition_map[initial_q].add((stimuli,final_q)) 
+        self.transition_map[initial_q].add((stimuli, final_q))
 
     def add_response(self, stimuli, state, response):
         pass
 
     def find_unreachable_vertices(self):
-        visited, queue = set(), [initial_state]
+        visited, queue = set(), [self.initial_state]
         while queue:
             vertex = queue.pop()
             if vertex not in visited:
                 visited.add(vertex)
-                queue.extend(map[vertex] - visited)
+                queue.extend(self.transition_map[vertex] - visited)
         return visited
-    
-
-
-                
-
-
-
-
-
-
-
-        
-
-    
-
