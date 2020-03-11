@@ -1,3 +1,5 @@
+import model
+
 class Automata:
     """
     A class used to represent a deterministic finite state machine
@@ -58,7 +60,7 @@ class Automata:
             del self.transition_map[v]
             del self.state_map[v]
     
-    
+
 
 
 
