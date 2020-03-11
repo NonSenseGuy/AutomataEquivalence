@@ -35,16 +35,26 @@ class Automata:
         
     def add_state(self, q, r):
         state_map[q] = [r]
-        transition_map[q] = []
+        transition_map[q] = set()
     
     def add_transition(self, stimuli, initial_q, final_q):
-        transition_map[initial_q].append((stimuli,final_q)) 
+        transition_map[initial_q].add((stimuli,final_q)) 
 
     def add_response(self, stimuli, state, response):
         pass
 
-    def find_inaccesible_vertices(self):
-        pass
+    def find_unreachable_vertices(self):
+        visited, queue = set(), [initial_state]
+        while queue:
+            vertex = queue.pop()
+            if vertex not in visited:
+                visited.add(vertex)
+                queue.extend(map[vertex] - visited)
+        return visited
+    
+
+
+                
 
 
 
