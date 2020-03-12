@@ -51,3 +51,13 @@ class Automata:
                 visited.add(vertex)
                 queue.extend(self.transition_map[vertex] - visited)
         return visited
+
+
+"""
+Eliminar innacesibles
+Renombrar mismo nombre
+Sumar automatas
+Particion 1
+Hacer el algorimto
+Verificar
+"""
