@@ -1,5 +1,3 @@
-
-
 class Automata:
     """
     A class used to represent a deterministic finite state machine
@@ -47,7 +45,7 @@ class Automata:
         pass
 
     def bfs(self):
-        visited, queue = set(), [initial_state]
+        visited, queue = set(), [self.initial_state]
         while queue:
             vertex = queue.pop()
             if vertex not in visited:
@@ -61,7 +59,8 @@ class Automata:
             del self.transition_map[v]
             del self.state_map[v]
     
-
+    def replace_states(self, new_states):
+        pass 
 
 
 
