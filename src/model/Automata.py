@@ -64,23 +64,11 @@ class Automata:
         pass 
 
 
-
-                
-
-
-
-
-
-
-
-        
-
-
 """
 Eliminar innacesibles
 Renombrar mismo nombre
 Sumar automatas
 Particion 1
-Hacer el algorimto
-Verificar
+Hacer el algoritmo
+Verificar Done
 """
