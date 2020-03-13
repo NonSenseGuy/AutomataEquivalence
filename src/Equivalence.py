@@ -32,6 +32,24 @@ class Equivalence:
 
         automata2.replace_states(new_states)
 
+    def sum_automatas(self, automata1, automata2):
+        Q = (automata1.Q).union(automata2.Q)
+        state_map = automata1.state_map.update(automata2.state_map)
+        transition_map = automata1.transition_map.update(
+            automata2.transition_map)
+
+        automata = Automata(Q, automata1.S, automata2.R)
+        automata.state_map = state_map
+        automata.transition_map = transition_map
+        return automata
+
+    def partitioning_algorithm(self, automata, first_partition):
+        last_partition = first_partition
+
+        partitions = set()
+
+        return partitions
+
     def validate_equivalence(self, automata1, automata2, partitions):
         elements_in_partition = False
         initial_state = False
@@ -57,4 +75,3 @@ class Equivalence:
 
         elements_in_partition = True
         return (elements_in_partition and initial_state)
-
