@@ -28,7 +28,7 @@ class Equivalence:
         for state in state_automata2:
             new_states[state] = ""
             if state in states_automata1:
-                new_states[state] = state+PRIMA
+                new_states[state] = state+self.PRIMA
 
         automata2.replace_states(new_states)
 
