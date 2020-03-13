@@ -25,9 +25,9 @@ class MooreAutomata(Automata):
 
     def __init__(self, Q, S, R, initial_state):
         self.state_r = {}
-        self.add_transition_map = {}
+        self.transition_map = {}
         Automata.__init__(self, Q, S, R, initial_state)
-        
+            
     
     def add_transition(self, stimuli, initial_q, final_q):
         try:
@@ -45,7 +45,7 @@ class MooreAutomata(Automata):
         try:
             if not response in self.R: 
                 raise ValueError("La respuesta no esta contenida en el alfabeto de respuestas")
-            state_r[state] = response 
+            self.state_r[state] = response 
         except ValueError:
             pass
 
