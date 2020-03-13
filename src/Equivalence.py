@@ -1,4 +1,4 @@
-from .Automata import Automata
+from Automata import Automata
 
 
 class Equivalence:
@@ -57,3 +57,4 @@ class Equivalence:
 
         elements_in_partition = True
         return (elements_in_partition and initial_state)
+

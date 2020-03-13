@@ -33,8 +33,8 @@ class Automata:
         self.S = S
         self.R = R
         self.initial_state = initial_state
-        self
-        
+    
+
     def add_state(self, q, r):
         self.state_map[q] = [r]
         self.transition_map[q] = set()
