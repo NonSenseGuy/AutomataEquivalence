@@ -43,19 +43,8 @@ class Automata(AutomataInterface):
             print("El estado que se desea agregar no hacer parte del alfabeto de estados")
         
     
-    def add_transition(self, stimuli, initial_q, final_q, r):
-        try:
-            if not r in R:
-                 raise ValueError("La respuesta no esta en el alfabeto de respuestas")
-            if not initial_q in Q or not initial_q in state_map.keys():
-                raise ValueError("Estado inicial erroneo") 
-            if not final_q in Q or not final_q in state_map.keys():
-                raise ValueError("Estado final erroneo")
-
-            self.transition_map[initial_q].add((stimuli,final_q, r)) 
-            self.state_map[initial_q].add(final_q)
-        except ValueError:
-            pass        
+    def add_transition(self):
+        pass        
 
     def add_response(self, stimuli, state, response):
         pass

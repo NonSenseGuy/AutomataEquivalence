@@ -25,15 +25,8 @@ class MooreAutomata(Automata):
 
     def __init__(self, Q, S, R, initial_state):
         self.state_r = {}
-
-    def add_state(self, q):
-        try:
-            if q in self.Q:
-                self.transition_map[q] = set()
-            else:
-                raise ValueError
-        except ValueError:
-            print("El estado que se desea agregar no hacer parte del alfabeto de estados")
+        self.add_transition_map = {}
+        Automata.__init__(self, Q, S, R, initial_state)
         
     
     def add_transition(self, stimuli, initial_q, final_q):
@@ -44,21 +37,18 @@ class MooreAutomata(Automata):
                 raise ValueError("Estado final erroneo")
 
             self.state_map[initial_q].add(final_q)
+            self.transition_map[initial_q].add((stimuli, final_q))
         except ValueError:
             pass        
 
     def add_response(self,state, response):
-        state_r[state] = response 
+        try:
+            if not response in self.R: 
+                raise ValueError("La respuesta no esta contenida en el alfabeto de respuestas")
+            state_r[state] = response 
+        except ValueError:
+            pass
 
-
-    def bfs(self):
-        visited, queue = set(), [self.initial_state]
-        while queue:
-            vertex = queue.pop()
-            if vertex not in visited:
-                visited.add(vertex)
-                queue.extend(self.state_map[vertex] - visited)
-        return visited
     
     def remove_unreachable_vertices(self):
         visited_vertices = self.bfs()
@@ -70,3 +60,7 @@ class MooreAutomata(Automata):
         pass 
 
 
+ma = MooreAutomata(['A','B','C'],[0,1],[0,1],'A')
+ma.add_state('B')
+ma.add_transition(0,'A','B')
+print(ma.state_map)
