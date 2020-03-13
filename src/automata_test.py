@@ -1,12 +1,12 @@
 import unittest
-from Automata import Automata
+from MealyAutomata import MealyAutomata
 
 class Automata_Test(unittest.TestCase):
 
-    def setup_moore_automata(self):
-        self.automata = Automata(['A','B','C'],[0,1],[0,1],'A', "Moore")
+    def setup_mealy_automata(self):
+        self.automata = Automata(['A','B','C'],[0,1],[0,1],'A')
 
-    def test_add_state_moore(self):
+    def add_mealy_state(self):
         self.setup_moore_automata()
         self.automata.add_state('A', 0)
         self.assertEqual(self.automata.state_map['A'], [0], "No son iguales")

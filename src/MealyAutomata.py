@@ -1,7 +1,6 @@
-from AutomataInterface import AutomataInterface
-from abc import ABC
+from Automata import Automata
 
-class Automata(AutomataInterface):
+class MealyAutomata(Automata):
     """
     A class used to represent a deterministic finite state machine
 
@@ -17,39 +16,22 @@ class Automata(AutomataInterface):
     Response set
     initial_state : str
     Automata initial state
-    automata_type : str
-    Automate type can be mealy or moore
 
 
 
     """
 
     def __init__(self, Q, S, R, initial_state):
-        self.state_map = {}
-        self.Q = Q
-        self.S = S
-        self.R = R
-        self.initial_state = initial_state
-        self.add_state(initial_state)
-    
-
-    def add_state(self, q):
-        try:
-            if q in self.Q:
-                self.state_map[q] = set()
-            else:
-                raise ValueError
-        except ValueError:
-            print("El estado que se desea agregar no hacer parte del alfabeto de estados")
-        
+        self.transition_map = {}    
+        Automata.__init__(self, Q, S, R, initial_state)
     
     def add_transition(self, stimuli, initial_q, final_q, r):
         try:
-            if not r in R:
+            if not r in self.R:
                  raise ValueError("La respuesta no esta en el alfabeto de respuestas")
-            if not initial_q in Q or not initial_q in state_map.keys():
+            if not initial_q in self.Q or not initial_q in self.state_map.keys():
                 raise ValueError("Estado inicial erroneo") 
-            if not final_q in Q or not final_q in state_map.keys():
+            if not final_q in self.Q or not final_q in self.state_map.keys():
                 raise ValueError("Estado final erroneo")
 
             self.transition_map[initial_q].add((stimuli,final_q, r)) 
@@ -77,14 +59,4 @@ class Automata(AutomataInterface):
     
     def replace_states(self, new_states):
         pass 
-
-
-"""
-Eliminar innacesibles
-Renombrar mismo nombre
-Sumar automatas
-Particion 1
-Hacer el algoritmo
-Verificar Done
-"""
 
