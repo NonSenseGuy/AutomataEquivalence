@@ -1,3 +1,4 @@
+from .Automata import Automata
 class Equivalence:
     """
     Main class of the model 

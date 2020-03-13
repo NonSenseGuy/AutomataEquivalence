@@ -1,3 +1,4 @@
+
 class Automata:
     """
     A class used to represent a deterministic finite state machine
