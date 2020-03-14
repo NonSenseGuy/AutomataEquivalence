@@ -1,5 +1,7 @@
 from Automata import Automata
-
+from MealyAutomata import MealyAutomata
+from MooreAutomata import MooreAutomata
+import Partition
 
 class Equivalence:
     """
@@ -41,14 +43,9 @@ class Equivalence:
         automata = Automata(Q, automata1.S, automata2.R)
         automata.state_map = state_map
         automata.transition_map = transition_map
+        self.automata_sum = automata
         return automata
 
-    def partitioning_algorithm(self, automata, first_partition):
-        last_partition = first_partition
-
-        partitions = set()
-
-        return partitions
 
     def validate_equivalence(self, automata1, automata2, partitions):
         elements_in_partition = False
@@ -75,3 +72,24 @@ class Equivalence:
 
         elements_in_partition = True
         return (elements_in_partition and initial_state)
+
+
+
+
+ma = MealyAutomata(['A','B','C'],[0,1],[0,1],'A')
+ma.add_state('B')
+ma.add_state('C')
+ma.add_transition(1,'A', 'C',0)
+ma.add_transition(0,'A','B',1)
+ma.add_transition(0,'B','A',1)
+ma.add_transition(1,'B','C',0)
+ma.add_transition(0,'C','A',1)
+ma.add_transition(1,'C','C',1)
+
+print(ma.sort_transition_map())
+print(ma.get_response('A'))
+print(ma.get_response('B'))
+print(ma.get_response('C'))
+
+
+print(Partition.first_partition(ma))

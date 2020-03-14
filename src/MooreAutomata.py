@@ -2,8 +2,7 @@ from Automata import Automata
 
 class MooreAutomata(Automata):
     """
-    A class used to represent a deterministic finite state machine
-
+    A class used to represent a Moore automata
     ...
 
     Attributes
@@ -16,8 +15,7 @@ class MooreAutomata(Automata):
     Response set
     initial_state : str
     Automata initial state
-    automata_type : str
-    Automate type can be mealy or moore
+
 
 
 
@@ -35,6 +33,9 @@ class MooreAutomata(Automata):
                 raise ValueError("Estado inicial erroneo") 
             if not final_q in self.Q or not final_q in self.state_map.keys():
                 raise ValueError("Estado final erroneo")
+            for s,q in transition_map[initial_q]:
+                if(s == stimuli):
+                    raise ValueError("Ya una transicion desde el estado inicial con el mismo stimulo")
 
             self.state_map[initial_q].add(final_q)
             self.transition_map[initial_q].add((stimuli, final_q))
@@ -59,8 +60,8 @@ class MooreAutomata(Automata):
     def replace_states(self, new_states):
         pass 
 
+    def get_responses(self, q):
+        return state_r[q]
 
-ma = MooreAutomata(['A','B','C'],[0,1],[0,1],'A')
-ma.add_state('B')
-ma.add_transition(0,'A','B')
-print(ma.state_map)
+
+

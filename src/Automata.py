@@ -3,8 +3,7 @@ from abc import ABC
 
 class Automata(AutomataInterface):
     """
-    A class used to represent a deterministic finite state machine
-
+    A class used to represent an Automata wheter is a Moore automata or a Mealy automata
     ...
 
     Attributes
@@ -17,8 +16,6 @@ class Automata(AutomataInterface):
     Response set
     initial_state : str
     Automata initial state
-    automata_type : str
-    Automate type can be mealy or moore
 
 
 
@@ -37,6 +34,7 @@ class Automata(AutomataInterface):
         try:
             if q in self.Q:
                 self.state_map[q] = set()
+                self.transition_map[q] = []
             else:
                 raise ValueError
         except ValueError:

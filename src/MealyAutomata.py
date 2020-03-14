@@ -22,19 +22,10 @@ class MealyAutomata(Automata):
     """
 
     def __init__(self, Q, S, R, initial_state):
-        self.transition_map = {}    
+        self.transition_map = {}   
         Automata.__init__(self, Q, S, R, initial_state)
 
     
-    def add_state(self, q):
-        try:
-            if q in self.Q:
-                self.state_map[q] = set()
-                self.transition_map[q] = set()
-            else:
-                raise ValueError
-        except ValueError:
-            print("El estado que se desea agregar no hacer parte del alfabeto de estados")
     
     def add_transition(self, stimuli, initial_q, final_q, r):
         try:
@@ -45,7 +36,7 @@ class MealyAutomata(Automata):
             if not final_q in self.Q or not final_q in self.state_map.keys():
                 raise ValueError("Estado final erroneo")
 
-            self.transition_map[initial_q].add((stimuli,final_q, r)) 
+            self.transition_map[initial_q].append((stimuli,final_q, r)) 
             self.state_map[initial_q].add(final_q)
         except ValueError:
             pass        
@@ -62,8 +53,19 @@ class MealyAutomata(Automata):
     def replace_states(self, new_states):
         pass 
 
+    def sort_transition_map(self):
+        for q in self.transition_map:
+            l = self.transition_map[q]
+            l.sort(key=lambda x: x[0])
+        return self.transition_map
 
-ma = MealyAutomata(['A','B','C'],[0,1],[0,1],'A')
-ma.add_state('B')
-ma.add_transition(0,'A','B',1)
-print(ma.transition_map)
+    def get_response(self, q):
+        self.sort_transition_map()
+        responses = []
+        for s,q1,r in self.transition_map[q]:
+            responses.append(r)
+        return responses
+
+
+
+
