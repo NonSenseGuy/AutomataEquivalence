@@ -11,7 +11,7 @@ class MealyAutomata_Test(unittest.TestCase):
         self.automata.add_state('B')
         self.automata.add_state('C')
         self.automata.add_transition(0,'A', 'B', 1)
-        self.automata.add_transition(0,'A', 'A', 0)
+        self.automata.add_transition(1,'A', 'A', 0)
         self.automata.add_transition(0,'C', 'B', 1)
 
     ##To prove raise of value error exception when adding a state that is already on the automata
@@ -37,4 +37,10 @@ class MealyAutomata_Test(unittest.TestCase):
     def test_remove_unreachable_vertices(self):
         self.setup_mealy_automata_unreachable_vertices()
         self.automata.remove_unreachable_vertices()
+        
         self.assertNotIn('C', self.automata.transition_map)
+
+    def test_get_response(self):
+        self.setup_mealy_automata_unreachable_vertices()
+        self.assertEqual(self.automata.get_response('A'), [1,0])
+

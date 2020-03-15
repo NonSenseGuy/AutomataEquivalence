@@ -57,12 +57,6 @@ class Automata(AutomataInterface):
                 queue.extend(self.state_map[vertex] - visited)
         return visited
     
-    def remove_unreachable_vertices(self):
-        visited_vertices = self.bfs()
-        for v in visited_vertices:
-            del self.transition_map[v]
-            del self.state_map[v]
-    
     def replace_states(self, new_states):
         pass 
 
