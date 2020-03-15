@@ -38,17 +38,18 @@ class MealyAutomata(Automata):
 
             self.transition_map[initial_q].append((stimuli,final_q, r)) 
             self.state_map[initial_q].add(final_q)
-        except ValueError:
-            pass        
+        except ValueError as e:
+            print(str(e))       
 
     def add_response(self, stimuli, state, response):
         pass
     
     def remove_unreachable_vertices(self):
         visited_vertices = self.bfs()
-        for v in visited_vertices:
-            del self.transition_map[v]
-            del self.state_map[v]
+        for v in transition_map:
+            if(v not in visited_vertices):
+                del self.transition_map[v]
+                del self.state_map[v]
     
     def replace_states(self,old_state, new_state):
         for t in self.transition_map[old_state]:
