@@ -10,7 +10,7 @@ class Equivalence:
 
     EQUIVALENT_MACHINES = "They are equivalent"
     NOT_EQUIVALENT_MACHINES = "They are not equivalent"
-    PRIMA = "'"
+    PRIMA = "`"
 
     def __init__(self, automata1, automata2):
         self.automata1 = automata1
@@ -22,17 +22,13 @@ class Equivalence:
     """
 
     def rename_states(self, automata1, automata2):
-        states_automata1 = automata1.S
-        state_automata2 = automata2.S
-
-        new_states = {}
+        states_automata1 = automata1.state_map.keys()
+        state_automata2 = automata2.state_map.keys()
 
         for state in state_automata2:
             new_states[state] = ""
             if state in states_automata1:
-                new_states[state] = state+self.PRIMA
-
-        automata2.replace_states(new_states)
+                automata2.replace_state(state,state+self.PRIMA)
 
     def sum_automatas(self, automata1, automata2):
         Q = (automata1.Q).union(automata2.Q)
@@ -85,7 +81,6 @@ ma.add_transition(0,'B','A',1)
 ma.add_transition(1,'B','C',0)
 ma.add_transition(0,'C','A',1)
 ma.add_transition(1,'C','C',1)
-
 print(ma.sort_transition_map())
 print(ma.get_response('A'))
 print(ma.get_response('B'))

@@ -33,12 +33,12 @@ class MooreAutomata(Automata):
                 raise ValueError("Estado inicial erroneo") 
             if not final_q in self.Q or not final_q in self.state_map.keys():
                 raise ValueError("Estado final erroneo")
-            for s,q in transition_map[initial_q]:
+            for s,q in self.transition_map[initial_q]:
                 if(s == stimuli):
-                    raise ValueError("Ya una transicion desde el estado inicial con el mismo stimulo")
+                    raise ValueError("Ya una transicion desde el estado inicial con el mismo estimulo")
 
             self.state_map[initial_q].add(final_q)
-            self.transition_map[initial_q].add((stimuli, final_q))
+            self.transition_map[initial_q].append((stimuli, final_q))
         except ValueError:
             pass        
 
@@ -57,11 +57,54 @@ class MooreAutomata(Automata):
             del self.state_r[v]
             del self.state_map[v]
     
-    def replace_states(self, new_states):
-        pass 
+    def replace_states(self,old_state, new_state):
+        self.replace_values(old_state, new_state)
+        i = self.Q.index(old_state)
+        self.Q[i] = new_state
+        self.transition_map[new_state] = self.transition_map.pop(old_state)
 
-    def get_responses(self, q):
-        return state_r[q]
+
+    def replace_values(self, old_state, new_state):
+        for t in self.transition_map[old_state]:
+            if old_state in t:
+                t[1] = new_state
+        for state in self.transition_map:
+            state_list = self.state_map[state]
+            if old_state in state_list:
+                state_list.remove(old_state)
+                state_list.add(new_state)
+                self.transition_map[state] = state_list
+                    
+
+        self.state_r[new_state] = self.state_r.pop(old_state)
+
+            
+
+    def get_response(self, q):
+        return self.state_r[q]
 
 
 
+
+
+ma = MooreAutomata(['A','B','C'],[0,1],[0,1],'A')
+ma.add_state('B')
+ma.add_state('C')
+ma.add_response('A', 1)
+ma.add_response('B', 1)
+ma.add_response('C', 1)
+ma.add_transition(1,'A','C')
+ma.add_transition(0,'A','B')
+ma.add_transition(0,'B','A')
+ma.add_transition(1,'B','C')
+ma.add_transition(0,'C','A')
+ma.add_transition(1,'C','C')
+
+print(ma.transition_map)
+print(ma.state_r)
+
+ma.replace_states('A','A`')
+print(ma.transition_map)
+print(ma.state_r)
+
+print(ma.transition_map.keys())
