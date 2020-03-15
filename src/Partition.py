@@ -57,7 +57,7 @@ def review_states(q1, q2, automata, old):
         
 def same_partition(partitions, q1, q2):
     for partition in partitions:
-        if q1 inpartition :
+        if q1 in partition :
             if q2 in partition:
                 return True
             else:

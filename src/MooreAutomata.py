@@ -50,12 +50,19 @@ class MooreAutomata(Automata):
         except ValueError:
             pass
 
-    
     def remove_unreachable_vertices(self):
         visited_vertices = self.bfs()
-        for v in visited_vertices:
-            del self.state_r[v]
+        l = []
+        for v in self.transition_map:
+            if v not in visited_vertices:
+                l.append(v)
+        self.remove_vertices_from_dict(l)
+
+    def remove_vertices_from_dict(self, l):
+        for v in l:
+            del self.transition_map[v]
             del self.state_map[v]
+            del self.state_r[v] 
     
     def replace_states(self,old_state, new_state):
         self.replace_values(old_state, new_state)

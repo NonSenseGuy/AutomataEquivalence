@@ -37,9 +37,8 @@ class Automata(AutomataInterface):
                 self.transition_map[q] = []
             else:
                 raise ValueError
-        except ValueError as e:
-            print(str(e)) 
-            print("El estado que se desea agregar no hacer parte del alfabeto de estados")
+        except ValueError:
+            pass
         
     
     def add_transition(self):
