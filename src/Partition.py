@@ -1,3 +1,4 @@
+from MealyAutomata import MealyAutomata
 def first_partition(automata):
     p1 = []
     responses = []
@@ -35,10 +36,10 @@ def do_partition(old, automata):
 
         partitions = review_partition(temp, old, automata)
 
-        partition_new.add(must_be)
+        partition_new.append(must_be)
 
         for item in partitions:
-            partition_new.add(partitions)
+            partition_new.append(partitions)
 
     return partition_new
 
@@ -47,7 +48,7 @@ def review_partition(temp, old, automata):
     partition = same_partition_states(temp, old, automata)   
 
     while (len(partition)!=0):
-        partitions.add(partition)
+        partitions.append(partition)
         to_review = temp.difference(partition)
         partition = same_partition_states(to_review, old, automata)
 
@@ -55,21 +56,22 @@ def review_partition(temp, old, automata):
 
 def same_partition_states(states, old, automata):
     partition = set()
-    state = states.pop()
+    if(states):
+        state = states.pop()
+    
+        for item in states:
+            control = review_states(state, item, automata, old)
+            if control:
+                partition.add(item)
 
-    for item in states:
-        control = review_states(state, item, automata, old)
-        if control:
-            partition.add(item)
-
-    partition.add(state)
+        partition.add(state)
 
     return partition
 
 
 def review_states(q1, q2, automata, old):
     in_same_partition = []
-    for stimuli in len(automata.S):
+    for stimuli in automata.S:
         transition_state_q1 = automata.transition_map[q1][stimuli]
         transition_state_q2 = automata.transition_map[q2][stimuli]
         in_same_partition.append(same_partition(old, transition_state_q1, transition_state_q2))

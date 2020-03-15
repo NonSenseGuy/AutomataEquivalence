@@ -40,6 +40,7 @@ class MealyAutomata(Automata):
 
             self.transition_map[initial_q].append((stimuli,final_q, r)) 
             self.state_map[initial_q].add(final_q)
+            self.sort_transition_map()
         except ValueError as e:
             print(str(e))       
 
