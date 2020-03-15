@@ -26,7 +26,6 @@ class Equivalence:
         state_automata2 = automata2.state_map.keys()
 
         for state in state_automata2:
-            new_states[state] = ""
             if state in states_automata1:
                 automata2.replace_state(state,state+self.PRIMA)
 
@@ -69,22 +68,3 @@ class Equivalence:
         elements_in_partition = True
         return (elements_in_partition and initial_state)
 
-
-
-
-ma = MealyAutomata(['A','B','C'],[0,1],[0,1],'A')
-ma.add_state('B')
-ma.add_state('C')
-ma.add_transition(1,'A', 'C',0)
-ma.add_transition(0,'A','B',1)
-ma.add_transition(0,'B','A',1)
-ma.add_transition(1,'B','C',0)
-ma.add_transition(0,'C','A',1)
-ma.add_transition(1,'C','C',1)
-print(ma.sort_transition_map())
-print(ma.get_response('A'))
-print(ma.get_response('B'))
-print(ma.get_response('C'))
-
-
-print(Partition.first_partition(ma))

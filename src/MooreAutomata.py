@@ -87,24 +87,3 @@ class MooreAutomata(Automata):
 
 
 
-ma = MooreAutomata(['A','B','C'],[0,1],[0,1],'A')
-ma.add_state('B')
-ma.add_state('C')
-ma.add_response('A', 1)
-ma.add_response('B', 1)
-ma.add_response('C', 1)
-ma.add_transition(1,'A','C')
-ma.add_transition(0,'A','B')
-ma.add_transition(0,'B','A')
-ma.add_transition(1,'B','C')
-ma.add_transition(0,'C','A')
-ma.add_transition(1,'C','C')
-
-print(ma.transition_map)
-print(ma.state_r)
-
-ma.replace_states('A','A`')
-print(ma.transition_map)
-print(ma.state_r)
-
-print(ma.transition_map.keys())

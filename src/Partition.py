@@ -19,3 +19,4 @@ def is_state_in_partition(q, p):
         if q in t:
             return True
     return False
+

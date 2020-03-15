@@ -50,13 +50,18 @@ class MealyAutomata(Automata):
             del self.transition_map[v]
             del self.state_map[v]
     
-    def replace_states(self, new_states):
-        pass 
+    def replace_states(self,old_state, new_state):
+        for t in self.transition_map[old_state]:
+            if old_state in t:
+                t[1] = new_state
+                pass
+        
 
     def sort_transition_map(self):
         for q in self.transition_map:
             l = self.transition_map[q]
             l.sort(key=lambda x: x[0])
+            self.transition_map[q] = l
         return self.transition_map
 
     def get_response(self, q):
