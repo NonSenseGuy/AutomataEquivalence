@@ -24,30 +24,55 @@ def kplus1partition(new, old, automata):
     if new == old :
         return new
     else:
-        return kplus1partition(do_partition(new, old), new, automata)
+        return kplus1partition(do_partition(old, automata), new, automata)
 
-def do_partition(new, old, automata):
-    pass
+def do_partition(old, automata):
+    partition_new = []
+    for partition in old:
 
-def review_temp(temp, oldpartition, automata):
+        must_be = same_partition_states(partition, old, automata)
+        temp = partition.difference(must_be)
+
+        partitions = review_partition(temp, old, automata)
+
+        partition_new.add(must_be)
+
+        for item in partitions:
+            partition_new.add(partitions)
+
+    return partition_new
+
+def review_partition(temp, old, automata):
     partitions = []
-    
-    while (len(temp)!=0):
-        control=True
-        q = temp[0]
-        temp.remove(q)
+    partition = same_partition_states(temp, old, automata)   
 
+    while (len(partition)!=0):
+        partitions.add(partition)
+        to_review = temp.difference(partition)
+        partition = same_partition_states(to_review, old, automata)
 
+    return partitions 
 
-    return partitions
+def same_partition_states(states, old, automata):
+    partition = set()
+    state = states.pop()
+
+    for item in states:
+        control = review_states(state, item, automata, old)
+        if control:
+            partition.add(item)
+
+    partition.add(state)
+
+    return partition
 
 
 def review_states(q1, q2, automata, old):
     in_same_partition = []
-    for stimuli in automata.S:
-        transition_state_q1 = automata.transition_map[q1][1]
-        transition_state_q2 = automata.transition_map[q2][1]
-        in_same_partition.append(same_partition(old, q1, q2))
+    for stimuli in len(automata.S):
+        transition_state_q1 = automata.transition_map[q1][stimuli]
+        transition_state_q2 = automata.transition_map[q2][stimuli]
+        in_same_partition.append(same_partition(old, transition_state_q1, transition_state_q2))
 
     for item in in_same_partition:
         if item!=True:
