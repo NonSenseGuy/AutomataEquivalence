@@ -1,4 +1,3 @@
-from Automata import Automata
 from MealyAutomata import MealyAutomata
 from MooreAutomata import MooreAutomata
 import Partition

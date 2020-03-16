@@ -5,14 +5,23 @@
 # Created by: PyQt5 UI code generator 5.9.2
 #
 # WARNING! All changes made in this file will be lost!
-
+from MealyAutomata import MealyAutomata
+from MooreAutomata import MooreAutomata
 from PyQt5 import QtCore, QtGui, QtWidgets
 
-class Ui_Create_AutomataWindow(object):
-    def setupUi(self, create_automata):
-        create_automata.setObjectName("Create_AutomataWindow")
-        create_automata.resize(391, 350)
-        self.centralwidget = QtWidgets.QWidget(create_automata)
+class Ui_CreateAutomataWindow(object):
+    def __init__(self, automata_type):
+        super(Ui_CreateAutomataWindow, self).__init__()
+        self.automata_type = automata_type
+        self.index = 0
+        self.automata = []
+        
+
+
+    def setupUi(self, MainWindow):
+        MainWindow.setObjectName("MainWindow")
+        MainWindow.resize(391, 350)
+        self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
         self.label = QtWidgets.QLabel(self.centralwidget)
         self.label.setGeometry(QtCore.QRect(10, 20, 381, 17))
@@ -35,6 +44,7 @@ class Ui_Create_AutomataWindow(object):
         self.pushButton = QtWidgets.QPushButton(self.centralwidget)
         self.pushButton.setGeometry(QtCore.QRect(140, 280, 89, 25))
         self.pushButton.setObjectName("pushButton")
+        self.pushButton.clicked.connect(self.create_automata())
         self.lineEdit_2 = QtWidgets.QLineEdit(self.centralwidget)
         self.lineEdit_2.setGeometry(QtCore.QRect(10, 250, 71, 25))
         self.lineEdit_2.setObjectName("lineEdit_2")
@@ -44,34 +54,55 @@ class Ui_Create_AutomataWindow(object):
         self.automata_n = QtWidgets.QLabel(self.centralwidget)
         self.automata_n.setGeometry(QtCore.QRect(10, 0, 91, 17))
         self.automata_n.setObjectName("automata_n")
-        create_automata.setCentralWidget(self.centralwidget)
-        self.menubar = QtWidgets.QMenuBar(create_automata)
+        self.automata_n.setText(self.automata_type)
+        MainWindow.setCentralWidget(self.centralwidget)
+        self.menubar = QtWidgets.QMenuBar(MainWindow)
         self.menubar.setGeometry(QtCore.QRect(0, 0, 391, 22))
         self.menubar.setObjectName("menubar")
-        create_automata.setMenuBar(self.menubar)
-        self.statusbar = QtWidgets.QStatusBar(create_automata)
+        MainWindow.setMenuBar(self.menubar)
+        self.statusbar = QtWidgets.QStatusBar(MainWindow)
         self.statusbar.setObjectName("statusbar")
-        create_automata.setStatusBar(self.statusbar)
+        MainWindow.setStatusBar(self.statusbar)
 
-        self.retranslateUi(create_automata)
-        QtCore.QMetaObject.connectSlotsByName(create_automata)
+        self.retranslateUi(MainWindow)
+        QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
-    def retranslateUi(self, create_automata):
+    def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
-        create_automata.setWindowTitle(_translate("create_automata", "create_automata"))
-        self.label.setText(_translate("create_automata", "Ingrese todos los estados separados por coma"))
-        self.label_2.setText(_translate("create_automata", "Ingrese el alfabeto de estimulos separados por coma"))
-        self.label_3.setText(_translate("create_automata", "Ingrese el alfabeto de respuestas separados por coma"))
-        self.pushButton.setText(_translate("create_automata", "Aceptar"))
-        self.label_4.setText(_translate("create_automata", "Ingrese estado inicial"))
-        self.automata_n.setText(_translate("create_automata", "Automata1"))
+        MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
+        self.label.setText(_translate("MainWindow", "Ingrese todos los estados separados por coma"))
+        self.label_2.setText(_translate("MainWindow", "Ingrese el alfabeto de estimulos separados por coma"))
+        self.label_3.setText(_translate("MainWindow", "Ingrese el alfabeto de respuestas separados por coma"))
+        self.pushButton.setText(_translate("MainWindow", "Aceptar"))
+        self.label_4.setText(_translate("MainWindow", "Ingrese estado inicial"))
+        self.automata_n.setText(_translate("MainWindow", self.automata_type))
 
     def get_S(self):
         return self.text_S.text()
     
     def get_Q(self):
-        return self.text_Q.text()
+        return self.lineEdit.text()
     
     def get_R(self):
         return self.text_R.text()
 
+    def get_initial_state(self):
+        return ''
+
+    def parse_inputs(self, inp):
+        s = inp.split(',')
+        [i.strip() for i in s]
+        return s
+    
+
+    def create_automata(self):
+        if self.automata_type == 'Moore':
+            automata = MooreAutomata(self.parse_inputs(self.get_Q()), self.parse_inputs(self.get_S()), self.parse_inputs(self.get_R()), self.get_initial_state()) 
+            self.automata.append(automata)
+            self.index = self.index + 1
+        else:
+            automata = MealyAutomata(self.parse_inputs(self.lineEdit.text()), self.parse_inputs(self.text_S.text()), self.parse_inputs(self.text_R.text()), self.get_initial_state())  
+            self.automata.append(automata)
+            self.index = self.index + 1
+        if index < 2:
+            self.create_automata()
