@@ -20,11 +20,14 @@ def is_state_in_partition(q, p):
             return True
     return False
 
+"""
+In the first iteration old = empty list
+"""
 def kplus1partition(new, old, automata):
     if new == old :
         return new
     else:
-        return kplus1partition(do_partition(old, automata), new, automata)
+        return kplus1partition(do_partition(new, automata), new, automata)
 
 def do_partition(old, automata):
     partition_new = []
@@ -35,20 +38,21 @@ def do_partition(old, automata):
 
         partitions = review_partition(temp, old, automata)
 
-        partition_new.add(must_be)
+        partition_new.append(must_be)
 
         for item in partitions:
-            partition_new.add(partitions)
+            partition_new.append(item)
 
     return partition_new
 
 def review_partition(temp, old, automata):
     partitions = []
+
     partition = same_partition_states(temp, old, automata)   
 
     while (len(partition)!=0):
-        partitions.add(partition)
-        to_review = temp.difference(partiton)
+        partitions.append(partition)
+        to_review = temp.difference(partition)
         partition = same_partition_states(to_review, old, automata)
 
     return partitions 
@@ -69,7 +73,7 @@ def same_partition_states(states, old, automata):
 
 def review_states(q1, q2, automata, old):
     in_same_partition = []
-    for stimuli in len(automata.S):
+    for stimuli in automata.S:
         transition_state_q1 = automata.transition_map[q1][stimuli]
         transition_state_q2 = automata.transition_map[q2][stimuli]
         in_same_partition.append(same_partition(old, transition_state_q1, transition_state_q2))
