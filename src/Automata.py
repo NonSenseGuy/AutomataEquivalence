@@ -1,4 +1,4 @@
-from AutomataInterface import AutomataInterface
+from src.AutomataInterface import AutomataInterface
 from abc import ABC
 
 class Automata(AutomataInterface):
