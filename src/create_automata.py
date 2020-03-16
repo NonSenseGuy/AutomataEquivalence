@@ -10,11 +10,11 @@ from MooreAutomata import MooreAutomata
 from PyQt5 import QtCore, QtGui, QtWidgets
 
 class Ui_CreateAutomataWindow(object):
-    def __init__(self, automata_type):
+    def __init__(self, automata_type, index, automatas):
         super(Ui_CreateAutomataWindow, self).__init__()
         self.automata_type = automata_type
-        self.index = 0
-        self.automata = []
+        self.index = index
+        self.automatas = automatas
         
 
 
@@ -43,8 +43,8 @@ class Ui_CreateAutomataWindow(object):
         self.label_3.setObjectName("label_3")
         self.pushButton = QtWidgets.QPushButton(self.centralwidget)
         self.pushButton.setGeometry(QtCore.QRect(140, 280, 89, 25))
-        self.pushButton.setObjectName("pushButton")
-        self.pushButton.clicked.connect(self.create_automata())
+        self.pushButton.setObjectName("createButton")
+        self.pushButton.clicked.connect(self.on_click)
         self.lineEdit_2 = QtWidgets.QLineEdit(self.centralwidget)
         self.lineEdit_2.setGeometry(QtCore.QRect(10, 250, 71, 25))
         self.lineEdit_2.setObjectName("lineEdit_2")
@@ -75,7 +75,7 @@ class Ui_CreateAutomataWindow(object):
         self.label_3.setText(_translate("MainWindow", "Ingrese el alfabeto de respuestas separados por coma"))
         self.pushButton.setText(_translate("MainWindow", "Aceptar"))
         self.label_4.setText(_translate("MainWindow", "Ingrese estado inicial"))
-        self.automata_n.setText(_translate("MainWindow", self.automata_type))
+        self.automata_n.setText(_translate("MainWindow", "{}{}".format(self.automata_type, self.index)))
 
     def get_S(self):
         return self.text_S.text()
@@ -94,15 +94,23 @@ class Ui_CreateAutomataWindow(object):
         [i.strip() for i in s]
         return s
     
-
-    def create_automata(self):
+    def on_click(self):
         if self.automata_type == 'Moore':
             automata = MooreAutomata(self.parse_inputs(self.get_Q()), self.parse_inputs(self.get_S()), self.parse_inputs(self.get_R()), self.get_initial_state()) 
-            self.automata.append(automata)
+            if(self.automatas == None):
+                self.automatas = []
+            self.automatas.append(automata)
             self.index = self.index + 1
         else:
             automata = MealyAutomata(self.parse_inputs(self.lineEdit.text()), self.parse_inputs(self.text_S.text()), self.parse_inputs(self.text_R.text()), self.get_initial_state())  
-            self.automata.append(automata)
+            if(self.automatas == None):
+                self.automatas = []
+            self.automatas.append(automata)
             self.index = self.index + 1
-        if index < 2:
-            self.create_automata()
+        if self.index < 2:
+            self.window = QtWidgets.QMainWindow()
+            self.ui = Ui_CreateAutomataWindow(self.automata_type, self.index, self.automatas)
+            self.ui.setupUi(self.window)
+            self.window.show()
+        else:
+            pass

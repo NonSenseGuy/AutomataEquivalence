@@ -39,8 +39,8 @@ class Ui_MainWindow(object):
 
     def open_create_automata_window(self):
         self.window = QtWidgets.QMainWindow()
-        self.ui = Ui_CreateAutomataWindow(str(self.comboBox.currentText()))
-        print(str(self.comboBox.currentText()))
+        self.ui = Ui_CreateAutomataWindow(str(self.comboBox.currentText()), 0, None)
+        self.close()
         self.ui.setupUi(self.window)
         self.window.show()
 
