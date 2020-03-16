@@ -1,3 +1,4 @@
+from MealyAutomata import MealyAutomata
 def first_partition(automata):
     p1 = []
     responses = []
@@ -41,7 +42,11 @@ def do_partition(old, automata):
         partition_new.append(must_be)
 
         for item in partitions:
+<<<<<<< HEAD
+            partition_new.append(partitions)
+=======
             partition_new.append(item)
+>>>>>>> 8a79ccd64efbb316b1100bb5315f17b242b38c61
 
     return partition_new
 
@@ -59,14 +64,15 @@ def review_partition(temp, old, automata):
 
 def same_partition_states(states, old, automata):
     partition = set()
-    state = states.pop()
+    if(states):
+        state = states.pop()
+    
+        for item in states:
+            control = review_states(state, item, automata, old)
+            if control:
+                partition.add(item)
 
-    for item in states:
-        control = review_states(state, item, automata, old)
-        if control:
-            partition.add(item)
-
-    partition.add(state)
+        partition.add(state)
 
     return partition
 
