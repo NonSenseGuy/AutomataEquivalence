@@ -2,7 +2,6 @@ from src.Automata import Automata
 from src.MealyAutomata import MealyAutomata
 from src.MooreAutomata import MooreAutomata
 import src.Partition
-
 class Equivalence:
     """
     Main class of the model it does the equivalence algorithm to test if 
