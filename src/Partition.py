@@ -70,20 +70,25 @@ def same_partition_states(states, old, automata):
 
     return partition
 
-
+"""
+This 
+"""
 def review_states(q1, q2, automata, old):
     in_same_partition = []
-    for stimuli in automata.S:
-        transition_state_q1 = automata.transition_map[q1][stimuli]
-        transition_state_q2 = automata.transition_map[q2][stimuli]
-        in_same_partition.append(same_partition(old, transition_state_q1, transition_state_q2))
+    for stimuli in range(len(automata.S)):
+        transition_q1 = automata.transition_map[q1][stimuli][1]
+        transition_q2 = automata.transition_map[q2][stimuli][1]
+        in_same_partition.append(same_partition(old, transition_q1, transition_q2))
 
     for item in in_same_partition:
         if item!=True:
             return False
 
     return True
-        
+    
+""""
+This method says if two states are in the same partition in a list of partitions
+"""
 def same_partition(partitions, q1, q2):
     for partition in partitions:
         if q1 in partition :
