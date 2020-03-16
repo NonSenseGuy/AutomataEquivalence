@@ -29,7 +29,10 @@ class Automata(AutomataInterface):
         self.initial_state = initial_state
         self.add_state(initial_state)
     
-
+    """
+    Q it is just the alphabet of states that you can use
+    You need to add an state using this method to an automata 
+    """
     def add_state(self, q):
         try:
             if q in self.Q:
@@ -40,13 +43,21 @@ class Automata(AutomataInterface):
         except ValueError:
             pass
         
-    
+    """
+    It has its own implementation in Mealy and Moore automatas 
+    """
     def add_transition(self):
         pass        
 
+    """
+    It has its own implementation in Mealy and Moore automatas 
+    """
     def add_response(self, stimuli, state, response):
         pass
 
+    """
+    It is used to find the states that you can visit from the initial state
+    """
     def bfs(self):
         visited, queue = set(), [self.initial_state]
         while queue:

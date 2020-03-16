@@ -1,5 +1,9 @@
 from MealyAutomata import MealyAutomata
 
+"""
+It gives you the first partition of an automata
+In the algorithm it is the only one step that is different
+"""
 def first_partition(automata):
     p1 = []
     responses = []
@@ -16,6 +20,10 @@ def first_partition(automata):
             p1.append(temp)
     return p1
 
+"""
+It checks if an state is in one of the partitions
+It is useful to avoid repeating state in a partition 
+"""
 def is_state_in_partition(q, p):
     for t in p:
         if q in t:

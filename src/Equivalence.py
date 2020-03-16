@@ -47,6 +47,7 @@ class Equivalence:
 
         #Check
         are_equivalent = self.validate_equivalence(self.automata1, self.automata2, kplus1_partitions)
+
         if are_equivalent:
             return self.EQUIVALENT_MACHINES
         else:
@@ -64,6 +65,11 @@ class Equivalence:
             if state in states_automata1:
                 automata2.replace_state(state,state+self.PRIMA)
 
+    """
+    It assumes that two automatas has different states and
+    same stimulis and responses
+    It just add them 
+    """
     def sum_automatas(self, automata1, automata2):
         Q = []
         state_map = {}
@@ -84,6 +90,11 @@ class Equivalence:
 
         return automata
 
+    """
+    Check if two automatas are equivalent given the final partition 
+    if there is at least one state of each automata in each of the partitions 
+    and if the two initial states are in the same partition, they are equivalent 
+    """
     def validate_equivalence(self, automata1, automata2, partitions):
         elements_in_partition = False
         initial_state = False

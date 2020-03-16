@@ -60,10 +60,12 @@ class Equivalence_Test(unittest.TestCase):
         self.assertTrue(len(astate)==2)
         self.assertTrue(astate[0] == ('a', 'C', 0) or astate[0] == ('b', 'B', 0))
 
+    ##To prove that two automatas are equivalent given the final partition
     def test_validate_equivalence(self):
         self.set_up_validate_equivalence()
         self.assertTrue(self.equivalence.validate_equivalence(self.automata1, self.automata2, self.partitions))
 
+    ##To prove that two automatas are equivalent from scratch 
     def test_are_equivalence(self):
         self.set_up_automata()
         response = self.equivalence.are_equivalent()

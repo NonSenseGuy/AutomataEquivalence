@@ -1,5 +1,7 @@
 from abc import ABC, abstractmethod
-
+"""
+Defines the behavior of the automata 
+"""
 class AutomataInterface:
 
     @abstractmethod

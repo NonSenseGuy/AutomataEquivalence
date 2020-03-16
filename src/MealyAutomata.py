@@ -17,16 +17,16 @@ class MealyAutomata(Automata):
     initial_state : str
     Automata initial state
 
-
-
     """
 
     def __init__(self, Q, S, R, initial_state):
         self.transition_map = {}   
         Automata.__init__(self, Q, S, R, initial_state)
 
-    
-    
+    """
+    In Mealy automata if you need to add a transition you need to specify
+    the response that you will receive
+    """
     def add_transition(self, stimuli, initial_q, final_q, r):
         try:
             if not r in self.R:
@@ -44,9 +44,10 @@ class MealyAutomata(Automata):
         except ValueError as e:
             print(str(e))       
 
-    def add_response(self, stimuli, state, response):
-        pass
-    
+    """
+    It removes unreachable vertices from the initial state
+    in a Mealy Automata
+    """    
     def remove_unreachable_vertices(self):
         visited_vertices = self.bfs()
         l = []
@@ -55,18 +56,29 @@ class MealyAutomata(Automata):
                 l.append(v)
         self.remove_vertices_from_dict(l)
 
+    """
+    It removes all the dependencies taht you will get if you delete a 
+    state in a Mealy Automata
+    """
     def remove_vertices_from_dict(self, l):
         for v in l:
             del self.transition_map[v]
             del self.state_map[v]
     
+    """
+    It replaces all the dependencies that you will get if you change
+    the name of a state in a Mealy Automata 
+    """
     def replace_states(self,old_state, new_state):
         for t in self.transition_map[old_state]:
             if old_state in t:
                 t[1] = new_state
                 pass
         
-
+    """
+    It alings the dictionaries with the stimulus
+    Making it looks like the tables that we use to represent automatas
+    """
     def sort_transition_map(self):
         for q in self.transition_map:
             l = self.transition_map[q]
@@ -74,13 +86,12 @@ class MealyAutomata(Automata):
             self.transition_map[q] = l
         return self.transition_map
 
+    """
+    It gives you the response that you get when you reach a state 
+    """
     def get_response(self, q):
         self.sort_transition_map()
         responses = []
         for s,q1,r in self.transition_map[q]:
             responses.append(r)
         return responses
-
-
-
-
