@@ -7,6 +7,8 @@
 # WARNING! All changes made in this file will be lost!
 from MealyAutomata import MealyAutomata
 from MooreAutomata import MooreAutomata
+from transitions_window import Ui_MealyAutomata
+from table import Window
 from PyQt5 import QtCore, QtGui, QtWidgets
 
 class Ui_CreateAutomataWindow(object):
@@ -99,18 +101,30 @@ class Ui_CreateAutomataWindow(object):
             automata = MooreAutomata(self.parse_inputs(self.get_Q()), self.parse_inputs(self.get_S()), self.parse_inputs(self.get_R()), self.get_initial_state()) 
             if(self.automatas == None):
                 self.automatas = []
+            
+
+
             self.automatas.append(automata)
             self.index = self.index + 1
+            
         else:
             automata = MealyAutomata(self.parse_inputs(self.lineEdit.text()), self.parse_inputs(self.text_S.text()), self.parse_inputs(self.text_R.text()), self.get_initial_state())  
             if(self.automatas == None):
                 self.automatas = []
             self.automatas.append(automata)
-            self.index = self.index + 1
-        if self.index < 2:
             self.window = QtWidgets.QMainWindow()
-            self.ui = Ui_CreateAutomataWindow(self.automata_type, self.index, self.automatas)
+            self.ui = (automata, self, self.index)
             self.ui.setupUi(self.window)
             self.window.show()
-        else:
-            pass
+
+            
+            self.index = self.index + 1
+            print(automata.transition_map)
+
+        # if self.index < 2:
+        #     self.window = QtWidgets.QMainWindow()
+        #     self.ui = Ui_CreateAutomataWindow(self.automata_type, self.index, self.automatas)
+        #     self.ui.setupUi(self.window)
+        #     self.window.show()
+        # else:
+        #     pass 
