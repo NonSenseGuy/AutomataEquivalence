@@ -51,6 +51,8 @@ def review_partition(temp, old, automata):
         to_review = temp.difference(partiton)
         partition = same_partition_states(to_review, old, automata)
 
+    return partitions 
+
 def same_partition_states(states, old, automata):
     partition = set()
     state = states.pop()
