@@ -42,11 +42,7 @@ def do_partition(old, automata):
         partition_new.append(must_be)
 
         for item in partitions:
-<<<<<<< HEAD
-            partition_new.append(partitions)
-=======
             partition_new.append(item)
->>>>>>> 8a79ccd64efbb316b1100bb5315f17b242b38c61
 
     return partition_new
 
