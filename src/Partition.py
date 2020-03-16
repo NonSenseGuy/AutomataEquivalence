@@ -42,32 +42,38 @@ def do_partition(old, automata):
         partition_new.append(must_be)
 
         for item in partitions:
-<<<<<<< HEAD
-            partition_new.append(partitions)
-=======
             partition_new.append(item)
->>>>>>> 8a79ccd64efbb316b1100bb5315f17b242b38c61
 
     return partition_new
 
+"""
+This method takes a partition and returns the partitions resulting from temp
+"""
 def review_partition(temp, old, automata):
     partitions = []
-
     partition = same_partition_states(temp, old, automata)   
 
     while (len(partition)!=0):
         partitions.append(partition)
+        for item in partition:
+            temp.remove(item)
+
         to_review = temp.difference(partition)
         partition = same_partition_states(to_review, old, automata)
 
     return partitions 
 
+"""
+You give this method a partition (called states) and it gives you 
+the states that should be in that partition taking into account the Pk-1
+"""
 def same_partition_states(states, old, automata):
+    states_copy= states.copy()
     partition = set()
-    if(states):
-        state = states.pop()
+    if(states_copy):
+        state = states_copy.pop()
     
-        for item in states:
+        for item in states_copy:
             control = review_states(state, item, automata, old)
             if control:
                 partition.add(item)
@@ -77,7 +83,8 @@ def same_partition_states(states, old, automata):
     return partition
 
 """
-This 
+This method check if two states must be in the same partition
+It has to review the transition map to do it
 """
 def review_states(q1, q2, automata, old):
     in_same_partition = []
