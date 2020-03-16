@@ -8,11 +8,11 @@
 
 from PyQt5 import QtCore, QtGui, QtWidgets
 
-class Ui_MainWindow(object):
-    def setupUi(self, MainWindow):
-        MainWindow.setObjectName("MainWindow")
-        MainWindow.resize(391, 350)
-        self.centralwidget = QtWidgets.QWidget(MainWindow)
+class Ui_Create_AutomataWindow(object):
+    def setupUi(self, create_automata):
+        create_automata.setObjectName("Create_AutomataWindow")
+        create_automata.resize(391, 350)
+        self.centralwidget = QtWidgets.QWidget(create_automata)
         self.centralwidget.setObjectName("centralwidget")
         self.label = QtWidgets.QLabel(self.centralwidget)
         self.label.setGeometry(QtCore.QRect(10, 20, 381, 17))
@@ -44,25 +44,34 @@ class Ui_MainWindow(object):
         self.automata_n = QtWidgets.QLabel(self.centralwidget)
         self.automata_n.setGeometry(QtCore.QRect(10, 0, 91, 17))
         self.automata_n.setObjectName("automata_n")
-        MainWindow.setCentralWidget(self.centralwidget)
-        self.menubar = QtWidgets.QMenuBar(MainWindow)
+        create_automata.setCentralWidget(self.centralwidget)
+        self.menubar = QtWidgets.QMenuBar(create_automata)
         self.menubar.setGeometry(QtCore.QRect(0, 0, 391, 22))
         self.menubar.setObjectName("menubar")
-        MainWindow.setMenuBar(self.menubar)
-        self.statusbar = QtWidgets.QStatusBar(MainWindow)
+        create_automata.setMenuBar(self.menubar)
+        self.statusbar = QtWidgets.QStatusBar(create_automata)
         self.statusbar.setObjectName("statusbar")
-        MainWindow.setStatusBar(self.statusbar)
+        create_automata.setStatusBar(self.statusbar)
 
-        self.retranslateUi(MainWindow)
-        QtCore.QMetaObject.connectSlotsByName(MainWindow)
+        self.retranslateUi(create_automata)
+        QtCore.QMetaObject.connectSlotsByName(create_automata)
 
-    def retranslateUi(self, MainWindow):
+    def retranslateUi(self, create_automata):
         _translate = QtCore.QCoreApplication.translate
-        MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
-        self.label.setText(_translate("MainWindow", "Ingrese todos los estados separados por coma"))
-        self.label_2.setText(_translate("MainWindow", "Ingrese el alfabeto de estimulos separados por coma"))
-        self.label_3.setText(_translate("MainWindow", "Ingrese el alfabeto de respuestas separados por coma"))
-        self.pushButton.setText(_translate("MainWindow", "Aceptar"))
-        self.label_4.setText(_translate("MainWindow", "Ingrese estado inicial"))
-        self.automata_n.setText(_translate("MainWindow", "Automata1"))
+        create_automata.setWindowTitle(_translate("create_automata", "create_automata"))
+        self.label.setText(_translate("create_automata", "Ingrese todos los estados separados por coma"))
+        self.label_2.setText(_translate("create_automata", "Ingrese el alfabeto de estimulos separados por coma"))
+        self.label_3.setText(_translate("create_automata", "Ingrese el alfabeto de respuestas separados por coma"))
+        self.pushButton.setText(_translate("create_automata", "Aceptar"))
+        self.label_4.setText(_translate("create_automata", "Ingrese estado inicial"))
+        self.automata_n.setText(_translate("create_automata", "Automata1"))
+
+    def get_S(self):
+        return self.text_S.text()
+    
+    def get_Q(self):
+        return self.text_Q.text()
+    
+    def get_R(self):
+        return self.text_R.text()
 
