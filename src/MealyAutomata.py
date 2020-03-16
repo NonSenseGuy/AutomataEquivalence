@@ -35,6 +35,8 @@ class MealyAutomata(Automata):
                 raise ValueError("Estado inicial erroneo") 
             if not final_q in self.Q or not final_q in self.state_map.keys():
                 raise ValueError("Estado final erroneo")
+            if not stimuli in self.S or stimuli in self.transition_map[initial_q]:
+                raise ValueError("Estimulo erroneo")
 
             self.transition_map[initial_q].append((stimuli,final_q, r)) 
             self.state_map[initial_q].add(final_q)
@@ -46,10 +48,16 @@ class MealyAutomata(Automata):
     
     def remove_unreachable_vertices(self):
         visited_vertices = self.bfs()
-        for v in transition_map:
-            if(v not in visited_vertices):
-                del self.transition_map[v]
-                del self.state_map[v]
+        l = []
+        for v in self.transition_map:
+            if v not in visited_vertices:
+                l.append(v)
+        self.remove_vertices_from_dict(l)
+
+    def remove_vertices_from_dict(self, l):
+        for v in l:
+            del self.transition_map[v]
+            del self.state_map[v]
     
     def replace_states(self,old_state, new_state):
         for t in self.transition_map[old_state]:

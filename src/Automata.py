@@ -37,9 +37,8 @@ class Automata(AutomataInterface):
                 self.transition_map[q] = []
             else:
                 raise ValueError
-        except ValueError as e:
-            print(str(e)) 
-            print("El estado que se desea agregar no hacer parte del alfabeto de estados")
+        except ValueError:
+            pass
         
     
     def add_transition(self):
@@ -56,12 +55,6 @@ class Automata(AutomataInterface):
                 visited.add(vertex)
                 queue.extend(self.state_map[vertex] - visited)
         return visited
-    
-    def remove_unreachable_vertices(self):
-        visited_vertices = self.bfs()
-        for v in visited_vertices:
-            del self.transition_map[v]
-            del self.state_map[v]
     
     def replace_states(self, new_states):
         pass 
