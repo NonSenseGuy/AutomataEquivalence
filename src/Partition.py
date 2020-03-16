@@ -1,4 +1,5 @@
 from MealyAutomata import MealyAutomata
+
 def first_partition(automata):
     p1 = []
     responses = []

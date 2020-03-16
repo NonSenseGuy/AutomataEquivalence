@@ -1,11 +1,12 @@
-from Automata import Automata
-from MealyAutomata import MealyAutomata
-from MooreAutomata import MooreAutomata
-import Partition
+from src.Automata import Automata
+from src.MealyAutomata import MealyAutomata
+from src.MooreAutomata import MooreAutomata
+import src.Partition
 
 class Equivalence:
     """
-    Main class of the model 
+    Main class of the model it does the equivalence algorithm to test if 
+    two automatas are equivalent 
     """
 
     EQUIVALENT_MACHINES = "They are equivalent"
@@ -17,10 +18,45 @@ class Equivalence:
         self.automata2 = automata2
 
     """
+    Flow of the equivalence automatas algorithm:
+    Remove unaccesible
+    Rename same states
+    Sum automatas
+    First partition
+    K+1 partition algorithm
+    Check
+    """
+    def are_equivalent(self):
+        #Remove unreachable vertices from two automatas
+        self.automata1.remove_unreachable_vertices()
+        self.automata2.remove_unreachable_vertices()
+
+        #Rename same states
+        if len(self.automata1.Q) >= len(self.automata2.Q):
+            self.rename_states(self.automata1, self.automata2)
+        else:
+            self.rename_states(self.automata1, self.automata2)
+
+        #Sum automatas
+        automata = self.sum_automatas(self.automata1, self.automata2)
+
+        #First partition
+        first_partition = src.Partition.first_partition(automata)
+        
+        #Partitioning algorithm
+        kplus1_partitions = src.Partition.kplus1partition(first_partition, [] , automata)
+
+        #Check
+        are_equivalent = self.validate_equivalence(self.automata1, self.automata2, kplus1_partitions)
+        if are_equivalent:
+            return self.EQUIVALENT_MACHINES
+        else:
+            return self.NOT_EQUIVALENT_MACHINES
+
+    """
     The second automata will be the one that will be replaced
     We have to check first which one is bigger 
     """
-
     def rename_states(self, automata1, automata2):
         states_automata1 = automata1.state_map.keys()
         state_automata2 = automata2.state_map.keys()
@@ -30,17 +66,16 @@ class Equivalence:
                 automata2.replace_state(state,state+self.PRIMA)
 
     def sum_automatas(self, automata1, automata2):
-        Q = (automata1.Q).union(automata2.Q)
-        state_map = automata1.state_map.update(automata2.state_map)
-        transition_map = automata1.transition_map.update(
-            automata2.transition_map)
-
-        automata = Automata(Q, automata1.S, automata2.R)
+        Q = []
+        state_map = {}
+        transition_map = {}
+        Q = automata1.Q + automata2.Q
+        state_map = state_map.update(automata1.state_map)
+        transition_map = dict(automata1.transitison_map.items() + automata2.transition_map.items()) 
+        automata = src.Automata(Q, automata1.S, automata2.R)
         automata.state_map = state_map
         automata.transition_map = transition_map
-        self.automata_sum = automata
         return automata
-
 
     def validate_equivalence(self, automata1, automata2, partitions):
         elements_in_partition = False
@@ -67,4 +102,3 @@ class Equivalence:
 
         elements_in_partition = True
         return (elements_in_partition and initial_state)
-

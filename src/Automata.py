@@ -60,12 +60,5 @@ class Automata(AutomataInterface):
         pass 
 
 
-"""
-Eliminar innacesibles
-Renombrar mismo nombre
-Sumar automatas
-Particion 1
-Hacer el algoritmo
-Verificar Done
-"""
+
 
