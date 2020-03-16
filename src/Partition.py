@@ -22,6 +22,7 @@ def is_state_in_partition(q, p):
     return False
 
 """
+This algorithm is gives the resulting partition of an automata
 In the first iteration old = empty list
 """
 def kplus1partition(new, old, automata):
@@ -30,6 +31,9 @@ def kplus1partition(new, old, automata):
     else:
         return kplus1partition(do_partition(new, automata), new, automata)
 
+"""
+This method takes a list of partitions and gives you the k+1 partition
+"""
 def do_partition(old, automata):
     partition_new = []
     for partition in old:
@@ -47,7 +51,7 @@ def do_partition(old, automata):
     return partition_new
 
 """
-This method takes a partition and returns the partitions resulting from temp
+This method takes a partition (temp) and returns the partitions resulting from temp
 """
 def review_partition(temp, old, automata):
     partitions = []
