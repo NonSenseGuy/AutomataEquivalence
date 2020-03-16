@@ -8,7 +8,6 @@
 from MealyAutomata import MealyAutomata
 from MooreAutomata import MooreAutomata
 from transitions_window import Ui_MealyAutomata
-from table import Window
 from PyQt5 import QtCore, QtGui, QtWidgets
 
 class Ui_CreateAutomataWindow(object):
@@ -113,7 +112,7 @@ class Ui_CreateAutomataWindow(object):
                 self.automatas = []
             self.automatas.append(automata)
             self.window = QtWidgets.QMainWindow()
-            self.ui = (automata, self, self.index)
+            self.ui = Ui_MealyAutomata(automata, self, self.index)
             self.ui.setupUi(self.window)
             self.window.show()
 

@@ -59,13 +59,16 @@ class Ui_MealyAutomata(object):
     
     def parse_inputs(self, inp):
         s = inp.split(',')
-        [i.strip() for i in s]
-        return s
+        return [i.strip() for i in s]
 
     def parse_tuples(self, t):
         s = t.split(';')
-        [i.strip() for i in s]
-        return s
+        l = [i.strip() for i in s]
+        k = self.parse_inputs(l)
+        print(k)
+        print("el de arriba es k")
+
+        return k
 
     def on_click(self):
         self.add_states()
@@ -80,6 +83,7 @@ class Ui_MealyAutomata(object):
     
     def add_transitions(self):
         l = self.parse_tuples(self.lineEdit_2.text())
+        print(l)
         for s,q0,q1,r in l:
             self.automata.add_transition(s,q0,q1,r)
             

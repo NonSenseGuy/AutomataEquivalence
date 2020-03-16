@@ -4,10 +4,10 @@ import sys
  
  
 class Window(QWidget):
-    def __init__(self, row_count, col_count, automata):
+    def __init__(self, automata, MainWindow):
         super().__init__()
-        self.rc = row_count
-        self.cc = col_count
+        self.rc = len(automata.Q)+1
+        self.cc = len(automata.S)+1
         self.a = automata 
  
         self.title = "PyQt5 Tables"
