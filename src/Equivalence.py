@@ -69,11 +69,19 @@ class Equivalence:
         state_map = {}
         transition_map = {}
         Q = automata1.Q + automata2.Q
-        state_map = state_map.update(automata1.state_map)
-        transition_map = dict(automata1.transitison_map.items() + automata2.transition_map.items()) 
-        automata = src.Automata(Q, automata1.S, automata2.R)
+        state_map = automata1.state_map
+        state_map.update(automata2.state_map)
+        transition_map = automata1.transition_map
+        transition_map.update(automata2.transition_map)
+
+        if isinstance(automata1, MooreAutomata):
+            automata = MooreAutomata(Q, automata1.S, automata2.R, automata1.initial_state)
+        else:
+            automata = MealyAutomata(Q, automata1.S, automata2.R, automata1.initial_state)
+
         automata.state_map = state_map
         automata.transition_map = transition_map
+
         return automata
 
     def validate_equivalence(self, automata1, automata2, partitions):

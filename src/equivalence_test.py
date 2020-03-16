@@ -32,6 +32,23 @@ class Equivalence_Test(unittest.TestCase):
 
         self.equivalence = Equivalence(self.automata1, self.automata2)
 
+    def set_up_validate_equivalence(self):
+        self.set_up_automata()
+        self.partitions = []
+        self.partition = set()
+        self.partition.add('A')
+        self.partition.add('W')
+        self.partitions.append(self.partition)
+        self.partition = set()
+        self.partition.add('C')
+        self.partition.add('Z')
+        self.partitions.append(self.partition)
+        self.partition = set()
+        self.partition.add('B')
+        self.partition.add('X')
+        self.partition.add('Y')
+        self.partitions.append(self.partition)
+
     ##To prove the comparision between two states are in the same partition or not 
     def test_sum_automata(self):
         self.set_up_automata()
@@ -39,11 +56,18 @@ class Equivalence_Test(unittest.TestCase):
         self.assertTrue(len(self.summedautomata.Q)==7)
         self.assertTrue(len(self.summedautomata.S)==2)
         self.assertTrue(len(self.summedautomata.R)==2)
-        """"
         astate = self.summedautomata.transition_map['A']
-        self.assertTrue(len(astate)=2)
+        self.assertTrue(len(astate)==2)
         self.assertTrue(astate[0] == ('a', 'C', 0) or astate[0] == ('b', 'B', 0))
-        """
+
+    def test_validate_equivalence(self):
+        self.set_up_validate_equivalence()
+        self.assertTrue(self.equivalence.validate_equivalence(self.automata1, self.automata2, self.partitions))
+
+    def test_are_equivalence(self):
+        self.set_up_automata()
+        response = self.equivalence.are_equivalent()
+        self.assertEquals(response, Equivalence.EQUIVALENT_MACHINES)
 
 
 
